@@ -4,11 +4,11 @@ You're on a mission to help the local Library to build an MVP books records syst
 
 This is an MVP for us to gather more feedback. As a result, we have omitted a login feature as we are not sure how we are going to control usage nor what kind of authentication mechanism we will be using.
 
-We have done out initial backlog review and came up with this prioritized backlog of \_ User Stories. The PO has kick started the first sprint and has **prioritized User Stories 1 and 2 as one that MUST be completed**.
+We have done out initial backlog review and came up with this prioritized backlog of User Stories. The PO has kick started the first sprint and has **prioritized User Stories 1 and 2 as one that MUST be completed**.
 
 Please make sure that your implementations is **backed by a robust and complete set of unit tests.**
 
-You must use Git and host your repository on GitHub or other similar services. Please refer to the last page on more information on how to submit your assignment.
+You must use Git and host your repository on GitHub or other similar services.
 
 The repository must have a top-level README.md that briefly explains how to start up the application locally.
 
