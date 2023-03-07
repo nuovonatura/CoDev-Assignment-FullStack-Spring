@@ -36,11 +36,9 @@ Your next task will be to create a SQL Query that will interact and pull the spe
 
 Your SQL query should be able to return the following the results:
 
-1. Top 3 rented books in the country
+1. Top 3 rented books in the world
 
-  - Using country codes **SG** , **MY** , **US**
-
-1. Top 3 people that has rented the most amount of books in that specific country
+2. For each book, the Top 3 people with the most amount of that book rented in a specific country. (Specified countries using country codes **SG , MY , US**)
 
   - Sorted by descending order
 
