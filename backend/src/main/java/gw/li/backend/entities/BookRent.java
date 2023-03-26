@@ -9,13 +9,8 @@ import java.time.OffsetDateTime;
 @Table(name = "book_rents")
 @Data
 public class BookRent {
-
-    @Id
-    @Column(name = "person_id", nullable = false)
-    private Long person;
-
-    @Column(name = "book_id", nullable = false)
-    private Long book;
+    @EmbeddedId
+    BookRentId id;
 
     @Column(name = "createdAt", nullable = false)
     private OffsetDateTime createdAt;
