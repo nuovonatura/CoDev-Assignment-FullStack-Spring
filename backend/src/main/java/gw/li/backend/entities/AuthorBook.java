@@ -1,17 +1,21 @@
 package gw.li.backend.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
 @Entity
 @Table(name = "author_books")
-@Data
 public class AuthorBook implements Serializable {
     @EmbeddedId
-    AuthorBookId id;
+    private AuthorBookId id;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("author_id")
@@ -23,9 +27,9 @@ public class AuthorBook implements Serializable {
     @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false)
     private Book book;
 
-    @Column(name = "createdAt", nullable = false)
+    @Column(name = "createdAt", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
     private OffsetDateTime createdAt;
 
-    @Column(name = "updatedAt", nullable = false)
+    @Column(name = "updatedAt", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
     private OffsetDateTime updatedAt;
 }
