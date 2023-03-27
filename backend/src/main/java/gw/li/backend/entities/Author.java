@@ -20,6 +20,6 @@ public class Author {
     private OffsetDateTime createdAt;
     @Column(name = "updatedAt", nullable = false)
     private OffsetDateTime updatedAt;
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author")
     private Set<AuthorBook> authorBooks;
 }

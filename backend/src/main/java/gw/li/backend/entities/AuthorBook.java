@@ -13,12 +13,12 @@ public class AuthorBook implements Serializable {
     @EmbeddedId
     AuthorBookId id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("author_id")
     @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false)
     private Author author;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @MapsId("book_id")
     @JoinColumn(name = "book_id", referencedColumnName = "id", nullable = false)
     private Book book;
