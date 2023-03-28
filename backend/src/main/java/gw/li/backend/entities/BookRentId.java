@@ -9,8 +9,6 @@ import java.time.OffsetDateTime;
 
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @Embeddable
 public class BookRentId implements Serializable {

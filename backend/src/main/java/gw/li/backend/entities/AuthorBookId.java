@@ -7,8 +7,6 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @Embeddable
 public class AuthorBookId implements Serializable {

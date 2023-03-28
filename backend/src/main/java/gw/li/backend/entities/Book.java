@@ -9,8 +9,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @Entity
 @Table(name = "books")

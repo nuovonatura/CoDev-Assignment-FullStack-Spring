@@ -8,8 +8,6 @@ import java.time.OffsetDateTime;
 
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
 @Entity
 @Table(name = "author_books")
