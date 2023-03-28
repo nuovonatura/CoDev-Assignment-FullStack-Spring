@@ -1,9 +1,6 @@
 package gw.li.backend;
 
-import gw.li.backend.entities.Author;
-import gw.li.backend.entities.AuthorBook;
-import gw.li.backend.entities.AuthorBookId;
-import gw.li.backend.entities.Book;
+import gw.li.backend.entities.*;
 import gw.li.backend.repositories.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +30,7 @@ class BackendApplicationTests {
 		authorRepository.save(author);
 		bookRepository.save(book);
 
-		AuthorBook ab = new AuthorBook();
-		ab.setId(new AuthorBookId(author, book));
-		ab.setAuthor(author);
-		ab.setBook(book);
-		OffsetDateTime now = OffsetDateTime.now();
-		ab.setCreatedAt(now);
-		ab.setUpdatedAt(now);
+		AuthorBook ab = new AuthorBook(author, book);
 
 		authorBookRepository.save(ab);
 

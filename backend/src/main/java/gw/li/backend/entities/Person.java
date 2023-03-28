@@ -22,5 +22,13 @@ public class Person {
     @Column(name = "updatedAt", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
     private OffsetDateTime updatedAt;
     @Column(name = "country_id")
-    private Long country_id;
+    private long country_id;
+
+    public Person(String name, long country_id) {
+        OffsetDateTime now = OffsetDateTime.now();
+        this.name = name;
+        this.country_id = country_id;
+        this.createdAt = now;
+        this.updatedAt = now;
+    }
 }

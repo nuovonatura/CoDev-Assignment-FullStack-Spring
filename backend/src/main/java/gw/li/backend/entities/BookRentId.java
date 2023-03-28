@@ -13,9 +13,15 @@ import java.time.OffsetDateTime;
 @Embeddable
 public class BookRentId implements Serializable {
     @Column(name = "person_id", nullable = false)
-    private Long person_id;
+    private long person_id;
     @Column(name = "book_id", nullable = false)
-    private Long book_id;
+    private long book_id;
     @Column(name = "createdAt", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
     private OffsetDateTime createdAt;
+
+    public BookRentId(long person_id, long book_id) {
+        this.person_id = person_id;
+        this.book_id = book_id;
+        this.createdAt = OffsetDateTime.now();
+    }
 }

@@ -30,4 +30,13 @@ public class AuthorBook implements Serializable {
 
     @Column(name = "updatedAt", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
     private OffsetDateTime updatedAt;
+
+    public AuthorBook(Author author, Book book) {
+        OffsetDateTime now = OffsetDateTime.now();
+        this.id = new AuthorBookId(author.getId(), book.getId());
+        this.author = author;
+        this.book = book;
+        this.createdAt = now;
+        this.updatedAt = now;
+    }
 }
