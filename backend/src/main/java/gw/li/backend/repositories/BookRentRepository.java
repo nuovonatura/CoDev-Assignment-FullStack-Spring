@@ -22,8 +22,7 @@ public interface BookRentRepository extends JpaRepository<BookRent, Long> {
     @Query(value = "SELECT p FROM " +
             "(SELECT br.id.person_id AS person_id, COUNT(br.id.person_id) AS count " +
             "FROM BookRent br WHERE br.id.book_id = :book_id " +
-            "GROUP BY br.id.person_id HAVING COUNT(br.id.person_id) >= 1 " +
-            "ORDER BY COUNT(br.id.person_id) DESC) l " +
-            "JOIN Person p ON l.person_id = p.id WHERE p.country_id = :country_id ORDER BY l.count LIMIT 3")
+            "GROUP BY br.id.person_id HAVING COUNT(br.id.person_id) >= 1) l " +
+            "JOIN Person p ON l.person_id = p.id WHERE p.country_id = :country_id ORDER BY l.count DESC LIMIT 3")
     List<Person> findTop3PeopleByBookAndCountry(@Param("book_id") int book_id, @Param("country_id") long country_id);
 }
