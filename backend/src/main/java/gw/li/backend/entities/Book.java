@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.OffsetDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -31,5 +32,10 @@ public class Book {
         OffsetDateTime now = OffsetDateTime.now();
         this.createdAt = now;
         this.updatedAt = now;
+    }
+
+    @Transient
+    public List<Author> getAuthors() {
+        return authorBooks.stream().map(AuthorBook::getAuthor).toList();
     }
 }
