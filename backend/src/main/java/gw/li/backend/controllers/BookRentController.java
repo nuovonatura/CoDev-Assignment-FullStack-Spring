@@ -1,13 +1,16 @@
 package gw.li.backend.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import gw.li.backend.entities.Author;
 import gw.li.backend.entities.Book;
 import gw.li.backend.entities.Person;
 import gw.li.backend.services.BookRentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +29,7 @@ public class BookRentController {
     }
 
     @GetMapping("/getTop3ReadBooks")
+    @Transactional
     public ResponseEntity<Object> getTop3ReadBooks(@RequestParam("country_code") String country_code) {
         long country_id = validateCountryCode(country_code);
 
@@ -51,12 +55,39 @@ public class BookRentController {
             try{
                 String body = objectMapper.writerWithDefaultPrettyPrinter()
                         .writeValueAsString(jsonNode);
-                return new ResponseEntity<>(body, HttpStatus.OK);
+                return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        ArrayNode body = objectMapper.createArrayNode();
+        for (Book book : result.keySet()) {
+            ObjectNode bookResult = objectMapper.createObjectNode();
+
+            List<String> authors = book.getAuthors().stream().map(Author::getName).toList();
+            bookResult.put("author", String.join(", ", authors));
+
+            bookResult.put("name", book.getName());
+
+            List<String> people = result.get(book).stream().map(Person::getName).toList();
+            ArrayNode top3People = objectMapper.createArrayNode();
+            for (String person : people) {
+                top3People.add(person);
+            }
+            bookResult.set("borrower", top3People);
+
+            body.add(bookResult);
+        }
+
+        try {
+            String stringBody = objectMapper.writerWithDefaultPrettyPrinter()
+                    .writeValueAsString(body);
+            return new ResponseEntity<>(stringBody, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
     }
 }
