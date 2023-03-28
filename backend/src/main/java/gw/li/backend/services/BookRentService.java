@@ -6,7 +6,7 @@ import gw.li.backend.repositories.BookRentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +16,7 @@ public class BookRentService {
     private BookRentRepository bookRentRepository;
 
     public Map<Book, List<Person>> getTop3RentedBook(Long country_id) {
-        HashMap<Book, List<Person>> res = new HashMap<>();
+        LinkedHashMap<Book, List<Person>> res = new LinkedHashMap<>();
 
         List<Book> top3RentedBooks = bookRentRepository.findTop3RentedBooks();
 
