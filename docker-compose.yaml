@@ -1,0 +1,35 @@
+services:
+  frontend:
+    build: ./frontend
+    container_name: react_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      default:
+        aliases:
+          - frontend
+  backend:
+    build: ./backend
+    container_name: spring_boot_backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    networks:
+      default:
+        aliases:
+          - backend
+  database:
+    build: ./database
+    container_name: postgres_database
+    ports:
+      - "5432:5432"
+    networks:
+      default:
+        aliases:
+          - database
+networks:
+  default:
+      name: project_network
