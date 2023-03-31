@@ -1,12 +1,19 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+#container {
     margin-top: auto;
     margin-bottom: auto;
     margin-left: auto;
     margin-right: auto;
+
+    padding: 1% 2% 1% 2%;
+
+    background-color: white;
+    border: 1.00847px solid #D46767;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-height: 90vh;
 }
 
 #error-message {
