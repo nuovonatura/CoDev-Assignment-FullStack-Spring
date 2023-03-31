@@ -11,24 +11,57 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 public class BookRentController {
     @Autowired
     private BookRentService bookRentService;
 
+    private final Map<String, Long> countryCodes = Map.of("SG", (long)65, "MY", (long)60, "US", (long)1);
+
     private long validateCountryCode(String country_code) {
-        Map<String, Long> countryCodes = Map.of("SG", (long)65, "MY", (long)60, "US", (long)1);
         return countryCodes.containsKey(country_code) ? countryCodes.get(country_code) : -1;
     }
 
+    @GetMapping("/getRandomCountry")
+    @CrossOrigin
+    public ResponseEntity<Object> getRandomCountry() {
+        Random r = new Random();
+        int index = r.nextInt(countryCodes.size());
+        int i = 0;
+        for (String key : countryCodes.keySet()) {
+            if (i == index) {
+                ObjectMapper objectMapper = new ObjectMapper();
+                ObjectNode detail = objectMapper.createObjectNode();
+                detail.put("full_name", key);
+                detail.put("country_code", countryCodes.get(key));
+                ObjectNode jsonNode = objectMapper.createObjectNode();
+                jsonNode.set("country", detail);
+                try{
+                    String body = objectMapper.writerWithDefaultPrettyPrinter()
+                            .writeValueAsString(jsonNode);
+                    return new ResponseEntity<>(body, HttpStatus.OK);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            i++;
+        }
+
+        return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+    }
+
     @GetMapping("/getTop3ReadBooks")
+    @CrossOrigin
     @Transactional
     public ResponseEntity<Object> getTop3ReadBooks(@RequestParam("country_code") String country_code) {
         long country_id = validateCountryCode(country_code);
